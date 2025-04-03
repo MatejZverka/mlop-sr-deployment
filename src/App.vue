@@ -84,12 +84,13 @@ const upscaleFactor = 1
 const canvasScalingFactor = 2
 
 // dynamically get the first occurence of model files with precision post-fixes
-const modelFiles = import.meta.glob('../models/*.onnx')
+//const modelFiles = import.meta.glob('../models/*.onnx')
+const modelFiles = import.meta.glob('/models/*.onnx')
 const modelFilesKeys = Object.keys(modelFiles)
 const fp32Model = modelFilesKeys.find(file => file.includes('_fp32'))
 const fp16Model = modelFilesKeys.find(file => file.includes('_fp16'))
-const modelPathFp32 = new URL(fp32Model, import.meta.url).href
-const modelPathFp16 = new URL(fp16Model, import.meta.url).href
+const modelPathFp32 = new URL(import.meta.env.BASE_URL + fp32Model.substring(1), import.meta.url).href
+const modelPathFp16 = new URL(import.meta.env.BASE_URL + fp16Model.substring(1), import.meta.url).href
 
 export default {
   name: "App",
